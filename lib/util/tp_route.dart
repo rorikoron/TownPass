@@ -14,6 +14,7 @@ import 'package:town_pass/page/city_service_edit/city_service_edit_view.dart';
 import 'package:town_pass/page/city_service_edit/city_service_edit_view_controller.dart';
 import 'package:town_pass/page/feedback/feedback_view.dart';
 import 'package:town_pass/page/feedback/feedback_view_controller.dart';
+import 'package:town_pass/page/hackathon_demo/hackathon_demo_view.dart';
 import 'package:town_pass/page/invoice_receipt/invoice_receipt_view.dart';
 import 'package:town_pass/page/language/language_view.dart';
 import 'package:town_pass/page/language/language_view_controller.dart';
@@ -34,6 +35,7 @@ import 'package:town_pass/page/subscription/subscription_view.dart';
 import 'package:town_pass/page/suspend_account/suspend_account_controller.dart';
 import 'package:town_pass/page/suspend_account/suspend_account_view.dart';
 import 'package:town_pass/util/tp_web_view.dart';
+import 'package:town_pass/page/hackathon_demo/hackathon_demo_view.dart';
 
 abstract class TPRoute {
   static const String main = '/';
@@ -59,6 +61,9 @@ abstract class TPRoute {
   static const String subscription = '/subscription';
   static const String suspendAccount = '/suspend_account';
   static const String webView = '/web_view';
+
+  // try to add demo url use in hackathon
+  static const String hackathon_demo_uri = '/hackathon_demo_uri';
 
   static final List<GetPage> page = [
     GetPage(
@@ -185,6 +190,9 @@ abstract class TPRoute {
       name: activityDetail,
       page: () => const ActivityDetailView(),
     ),
+    // ANCHOR: demo
+    // below are the microservice added for hackathon
+    GetPage(name: hackathon_demo_uri, page: () => const HackathonDemoView())
   ];
 
   static Future openUri({required String uri, String? forceTitle}) async {

@@ -139,6 +139,11 @@ class CityServiceEditView extends GetView<CityServiceEditViewController> {
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 16),
+
+                                  // ANCHOR: custom children should add to here
+                                  // here is the start of one component
+                                  // icon + right-side text
+                                  // selected by itemId, which is defined in controller.categoryMap
                                   child: Row(
                                     children: [
                                       SizedBox.square(

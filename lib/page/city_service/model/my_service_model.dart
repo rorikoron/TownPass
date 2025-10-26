@@ -29,6 +29,7 @@ enum MyServiceItemId {
   library,
   locationSearch,
   zoo,
+  hackathon_demo_service_one,
   ;
 }
 
@@ -183,6 +184,13 @@ extension MyServiceIdExt on MyServiceItemId {
           category: MyServiceCategory.explore,
           destinationUrl: '',
         ),
+      MyServiceItemId.hackathon_demo_service_one => MyServiceItem(
+        title: 'DemoService-1',
+        description: '測試內容',
+        icon: Assets.svg.iconPoster.svg(),
+        category: MyServiceCategory.cityService,
+        destinationUrl: "https://hackathon-2025-fall.pages.dev/demo-one",
+      )
     };
   }
 }
