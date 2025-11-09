@@ -76,29 +76,30 @@ class TPWebView extends StatelessWidget {
         title: appBarController.title.value,
         controller: appBarController,
       ),
-      body: TPInAppWebView(
-        onWebViewCreated: (controller) {
-          webViewController.value = controller;
-          try {
-            controller.loadUrl(urlRequest: URLRequest(url: WebUri(url)));
-          } catch (_) {
-            controller.loadData(data: _failedToLoadUrlData(url: url));
-          }
-        },
-        onUpdateVisitedHistory: (_, __, ___) async {
-          canGoBack.value = await webViewController.value?.canGoBack() ?? false;
-        },
-        onTitleChanged: (_, title) {
-          appBarController.title.value = switch (forceTitle == null) {
-            true => title,
-            false => forceTitle,
-          };
-        },
-        onGeolocationPermissionsShowPrompt: (controller, origin) async {
-          // should be deal individually (ask for user agreement)
-          return GeolocationPermissionShowPromptResponse(origin: origin, allow: true, retain: true);
-        },
-        onCloseWindow: (_) => Get.back(),
+      body: SafeArea(
+        child:TPInAppWebView(
+          onWebViewCreated: (controller) {
+            webViewController.value = controller;
+            try {
+              controller.loadUrl(urlRequest: URLRequest(url: WebUri(url)));
+            } catch (_) {
+              controller.loadData(data: _failedToLoadUrlData(url: url));
+            }
+          },
+          onUpdateVisitedHistory: (_, __, ___) async {
+            canGoBack.value = await webViewController.value?.canGoBack() ?? false;
+          },
+          onTitleChanged: (_, title) {
+            appBarController.title.value = switch (forceTitle == null) {
+              true => title,
+              false => forceTitle,
+            };
+          },
+          onGeolocationPermissionsShowPrompt: (controller, origin) async {
+            // should be deal individually (ask for user agreement)
+            return GeolocationPermissionShowPromptResponse(origin: origin, allow: true, retain: true);
+          },
+          onCloseWindow: (_) => Get.back(),)
       ),
     );
   }

@@ -2,12 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:health/health.dart';
 import 'package:town_pass/gen/assets.gen.dart';
 import 'package:town_pass/service/account_service.dart';
 import 'package:town_pass/service/device_service.dart';
 import 'package:town_pass/service/geo_locator_service.dart';
+import 'package:town_pass/service/health_connect_service.dart';
+import 'package:town_pass/service/nfc_service.dart';
 import 'package:town_pass/service/notification_service.dart';
 import 'package:town_pass/service/shared_preferences_service.dart';
 import 'package:town_pass/service/subscription_service.dart';
@@ -279,5 +283,66 @@ class QRCodeScanMessageHandler extends TPWebMessageHandler {
     onReply?.call(
       replyWebMessage(data: result),
     );
+  }
+}
+class HealthConnectMessageHandler extends TPWebMessageHandler {
+  @override
+  String get name => 'health_connect';
+
+  @override
+  handle({
+    required Object? message,
+    required WebUri? sourceOrigin,
+    required bool isMainFrame,
+    required Function(WebMessage reply)? onReply,
+  }) async {
+    List<HealthDataPoint>? steps;
+
+    debugPrint("demo-service: received!");
+    // might have permission issue
+      try {
+        List<int> numbers = [];
+        for(int i = 0; i < 7; i++){
+          final dailyStatistic = await Get.find<HealthConnectService>().steps(i);
+
+          // 1日の最初のデータを取り出す（なければ 0）
+          int steps = dailyStatistic.isNotEmpty ? dailyStatistic[0].value.numericValue ?? 0 : 0;
+
+          // numbers に追加
+          numbers.add(steps);
+        }
+    } catch (error) {
+      printError(info: error.toString());
+    }
+
+    onReply?.call(replyWebMessage(
+      data: steps ?? [],
+    ));
+  }
+}
+class NfcMessageHandler extends TPWebMessageHandler{
+  @override
+  String get name => 'nfc';
+
+  @override
+  handle({
+    required Object? message,
+    required WebUri? sourceOrigin,
+    required bool isMainFrame,
+    required Function(WebMessage reply)? onReply,
+  }) async {
+    List<HealthDataPoint>? steps;
+
+    debugPrint("demo-service: nfc received!");
+    // might have permission issue
+    try {
+      steps = await Get.find<NfcService>().getNfcMessage();
+    } catch (error) {
+      printError(info: error.toString());
+    }
+
+    onReply?.call(replyWebMessage(
+      data: steps ?? [],
+    ));
   }
 }

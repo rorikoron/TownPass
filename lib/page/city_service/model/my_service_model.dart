@@ -185,8 +185,8 @@ extension MyServiceIdExt on MyServiceItemId {
           destinationUrl: '',
         ),
       MyServiceItemId.hackathon_demo_service_one => MyServiceItem(
-        title: 'DemoService-1',
-        description: '測試內容',
+        title: 'PAWGO',
+        description: '和狗狗陪你運動',
         icon: Assets.svg.iconPoster.svg(),
         category: MyServiceCategory.cityService,
         destinationUrl: "https://hackathon-2025-fall.pages.dev/demo-one",
