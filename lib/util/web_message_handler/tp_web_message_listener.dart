@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:town_pass/service/open_uri_service.dart';
 import 'package:town_pass/util/web_message_handler/tp_web_message_handler.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
@@ -15,7 +16,7 @@ abstract class TPWebMessageListener {
         NotifyMessageHandler(),
         QRCodeScanMessageHandler(),
         HealthConnectMessageHandler(),
-        NfcMessageHandler()
+        NfcMessageHandler(),
       ];
 
   static WebMessageListener webMessageListener() {

@@ -13,6 +13,7 @@ import 'package:town_pass/service/geo_locator_service.dart';
 import 'package:town_pass/service/health_connect_service.dart';
 import 'package:town_pass/service/nfc_service.dart';
 import 'package:town_pass/service/notification_service.dart';
+import 'package:town_pass/service/open_uri_service.dart';
 import 'package:town_pass/service/shared_preferences_service.dart';
 import 'package:town_pass/service/subscription_service.dart';
 import 'package:town_pass/util/tp_button.dart';
